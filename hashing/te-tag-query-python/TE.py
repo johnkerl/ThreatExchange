@@ -205,11 +205,9 @@ class Net:
 
             data = response["data"]
 
-            nextURL = None
-            if "paging" in response:
-                paging = response["paging"]
-                if "next" in paging:
-                    nextURL = paging["next"]
+            # Will be None if there is no paging or paging.next in the response
+            nextURL = response.get("paging", {}).get("next")
+
             ids = []
             for item in data:
                 itemID = item["id"]
