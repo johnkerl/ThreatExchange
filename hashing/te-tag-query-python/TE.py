@@ -158,7 +158,7 @@ class Net:
         taggedSince = kwargs.get("taggedSince", None)
         taggedUntil = kwargs.get("taggedUntil", None)
 
-        startURL = (
+        startURL = urllib.parse.urlencode(
             self.TE_BASE_URL
             + "/"
             + tagID
@@ -438,8 +438,7 @@ class Net:
     # Code-reuse for submit and update
     @classmethod
     def _postThreatDescriptor(self, url, postParams, showURLs, dryRun):
-        for key, value in postParams.items():
-            url += "&%s=%s" % (key, urllib.parse.quote(str(value)))
+        url += "?" + urllib.parse.urlencode(postParams.items())
         if showURLs:
             print()
             print("URL:")
